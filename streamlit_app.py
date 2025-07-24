@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 
 # --- System Instructions (in English) ---
 SYSTEM_INSTRUCTION_EN = """
