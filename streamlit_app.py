@@ -1,7 +1,6 @@
 import streamlit as st
-import google.generativeai as genai
-
-
+from google import genai
+import os
 
 # --- System Instructions (in English) ---
 SYSTEM_INSTRUCTION_EN = """
@@ -15,7 +14,9 @@ SYSTEM_INSTRUCTION_EN = """
 # Streamlit will automatically load it.
 try:
     gemini_api_key = st.secrets["GEMINI_API"]
-    genai.configure(api_key=gemini_api_key)
+    os.environ["GEMINI_API_KEY"]= gemini_api_key
+    client = genai.Client() 
+    #genai.configure(api_key=gemini_api_key)
 except KeyError:
     st.error(
         "Gemini API Key not found. "
@@ -27,7 +28,7 @@ except KeyError:
 # --- Chatbot Setup ---
 st.title("💬 Bengali Gemini Chatbot") # English title
 st.write(
-    "This is a simple chatbot that uses Google's Gemini Pro model. "
+    "This is a simple chatbot that uses Bengali content to answer students questions. "
     "Please ask your questions in Bengali."
 )
 
@@ -213,7 +214,7 @@ if prompt := st.chat_input("Write your question in Bengali..."): # English promp
                       f"\n\nUser's Question: {prompt}"
 
     # Initialize Gemini model
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-2.5-flash')
 
     with st.spinner("Thinking..."): # English spinner text
         try:
