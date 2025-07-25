@@ -214,20 +214,15 @@ if prompt := st.chat_input("Write your question in Bengali..."): # English promp
                       f"\n\nUser's Question: {prompt}"
 
     # Initialize Gemini model
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    #model = genai.GenerativeModel('gemini-2.5-flash')
 
     with st.spinner("Thinking..."): # English spinner text
         try:
             # Generate a response using the Gemini API.
-            response_stream = model.generate_content(
-                combined_prompt,
+            response_stream = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=combined_prompt,
                 stream=True,
-                safety_settings=[
-                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
-                ]
             )
 
             # Stream the response to the chat using `st.write_stream`.
