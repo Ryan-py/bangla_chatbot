@@ -219,10 +219,10 @@ if prompt := st.chat_input("Write your question in Bengali..."): # English promp
     with st.spinner("Thinking..."): # English spinner text
         try:
             # Generate a response using the Gemini API.
-            response_stream = client.models.generate_content(
+            response_stream = client.models.generate_content_stream(
                 model='gemini-2.5-flash',
                 contents=combined_prompt,
-                stream=True,
+               
             )
 
             # Stream the response to the chat using `st.write_stream`.
